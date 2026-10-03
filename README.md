@@ -29,6 +29,10 @@ test/                       # Runs on your computer, no device needed
 
 integration_test/           # Runs the real app on a device/emulator
   counter_test.dart              # Integration test
+
+test_driver/                # Flutter Driver tests (app + test run separately)
+  app.dart                       # Starts the app with the driver extension enabled
+  list_test.dart                 # Driver test for the fruit product list
 ```
 
 ---
@@ -107,6 +111,33 @@ flutter test integration_test/counter_test.dart -d macos
 ```
 
 Replace `emulator-5554` with the device ID that `flutter devices` shows.
+
+**Flutter Driver test** (fruit product list in [test_driver/list_test.dart](test_driver/list_test.dart)):
+
+`flutter drive` builds and launches [test_driver/app.dart](test_driver/app.dart)
+(the app with `enableFlutterDriverExtension()`), then runs the test script
+against it from your computer.
+
+```bash
+flutter drive --target=test_driver/app.dart --driver=test_driver/list_test.dart
+```
+
+On a specific device, e.g. an Android emulator or macOS desktop:
+
+```bash
+flutter drive --target=test_driver/app.dart --driver=test_driver/list_test.dart -d emulator-5554
+```
+
+```bash
+flutter drive --target=test_driver/app.dart --driver=test_driver/list_test.dart -d macos
+```
+
+Test cases it covers:
+
+| Test | What it checks |
+|---|---|
+| `first product should be apple` | Taps `open_list`, opens `product_0`, expects `detail_text` to be "You have opened Apple with price 12.99", then goes back to the list |
+| `Scroll to last product open it and go back` | Scrolls `product_list` until `product_39` is visible, expects its name to be "Grapes", opens it, expects "You have opened Grapes with price 19.99", then goes back |
 
 ---
 
