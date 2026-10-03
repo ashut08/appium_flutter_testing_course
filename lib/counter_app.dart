@@ -1,4 +1,5 @@
 import 'package:appiumtesting/counter_controller.dart';
+import 'package:appiumtesting/list_page.dart';
 import 'package:flutter/material.dart';
 
 class CounterApp extends StatefulWidget {
@@ -65,6 +66,17 @@ class _CounterAppState extends State<CounterApp> {
                   child: Text("Reset"),
                 ),
               ],
+            ),
+            FilledButton.icon(
+              key: ValueKey('open_list'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ListPage()),
+                );
+              },
+              label: Text("Open list"),
+              icon: Icon(Icons.list),
             ),
           ],
         ),
