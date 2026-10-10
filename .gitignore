@@ -43,3 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Node / Appium (appium-test/)
+appium-test/node_modules/
+appium-test/npm-debug.log*
+appium-test/appium.log
+appium-test/allure-results/

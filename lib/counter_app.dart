@@ -1,5 +1,6 @@
 import 'package:appiumtesting/counter_controller.dart';
 import 'package:appiumtesting/list_page.dart';
+import 'package:appiumtesting/login_page.dart';
 import 'package:flutter/material.dart';
 
 class CounterApp extends StatefulWidget {
@@ -67,6 +68,21 @@ class _CounterAppState extends State<CounterApp> {
                 ),
               ],
             ),
+            FilledButton.icon(
+              key: ValueKey('open_login'),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(name: "david"),
+                  ),
+                );
+              },
+              label: Text("Open login"),
+              icon: Icon(Icons.login),
+            ),
+
+            SizedBox(height: 20),
             FilledButton.icon(
               key: ValueKey('open_list'),
               onPressed: () {

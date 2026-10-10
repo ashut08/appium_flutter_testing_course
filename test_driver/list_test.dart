@@ -10,7 +10,7 @@ void main() {
     SerializableFinder product(int index) => find.byValueKey('product_$index');
     SerializableFinder nameof(int index) => find.descendant(
       of: product(index),
-      matching: find.byType("text"),
+      matching: find.byType("Text"),
       firstMatchOnly: true,
     );
 
