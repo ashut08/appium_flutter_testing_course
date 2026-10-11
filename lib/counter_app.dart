@@ -1,6 +1,7 @@
 import 'package:appiumtesting/counter_controller.dart';
 import 'package:appiumtesting/list_page.dart';
 import 'package:appiumtesting/login_page.dart';
+import 'package:appiumtesting/yes_no_button.dart';
 import 'package:flutter/material.dart';
 
 class CounterApp extends StatefulWidget {
@@ -12,6 +13,28 @@ class CounterApp extends StatefulWidget {
 
 class _CounterAppState extends State<CounterApp> {
   final counterController = CounterController();
+
+  /// Ask before clearing the count. YES resets it, NO keeps it.
+  Future<void> _confirmReset() async {
+    final clear = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        key: ValueKey('reset_dialog'),
+        title: Text("Clear the count?", textAlign: TextAlign.center),
+        content: YesNoButton(
+          yesKey: ValueKey('reset_yes'),
+          noKey: ValueKey('reset_no'),
+          onYes: () => Navigator.pop(context, true),
+          onNo: () => Navigator.pop(context, false),
+        ),
+      ),
+    );
+    if (clear == true) {
+      setState(() {
+        counterController.reset();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +82,7 @@ class _CounterAppState extends State<CounterApp> {
                 SizedBox(width: 10),
                 OutlinedButton(
                   key: ValueKey("reset"),
-                  onPressed: () {
-                    setState(() {
-                      counterController.reset();
-                    });
-                  },
+                  onPressed: _confirmReset,
                   child: Text("Reset"),
                 ),
               ],

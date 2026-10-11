@@ -1,4 +1,4 @@
-import 'package:appiumtesting/welcomepage.dart';
+import 'package:appiumtesting/shop/shop_product_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
         _passwordController.text == "password123") {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => WelcomePage(name: user)),
+        MaterialPageRoute(builder: (context) => ShopProductsPage()),
       );
     } else {
       setState(() {

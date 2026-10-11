@@ -29,8 +29,17 @@ void main() {
     await tester.pump();
 
     expect(tester.widget<Text>(counter).data, '2');
+    // Reset asks first: NO keeps the count, YES clears it.
     await tester.tap(find.byKey(const ValueKey('reset')));
-    await tester.pump();
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('reset_no')));
+    await tester.pumpAndSettle();
+    expect(tester.widget<Text>(counter).data, '2');
+
+    await tester.tap(find.byKey(const ValueKey('reset')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('reset_yes')));
+    await tester.pumpAndSettle();
     expect(tester.widget<Text>(counter).data, '0');
   });
 }

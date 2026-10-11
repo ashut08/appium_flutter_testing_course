@@ -64,7 +64,45 @@ export async function textOf(finder: string) {
 
     await waitFor(finder);
 
-    await driver.getElementText(finder);
+    return await driver.getElementText(finder);
+
+}
+
+
+export async function scrollTo(
+    list: string,
+    item: string,
+
+    dy = -400,
+
+    maxScroll = 15
+
+) {
+
+    for (let i = 0; i < maxScroll++; i++) {
+        //Give the list time to stop moving befor cheking the item is present or not  after scrolling up  
+        if (await isPresent(item, 1500)) {
+            //if item is there but not in middle then we are saying bring it to middle
+            await driver.execute('flutter:scrollIntoView', item, {
+                aligmnet: 0.5
+            });
+            return;
+        }
+
+
+
+        await driver.execute('flutter:scroll', list, {
+            dx: 0,
+            dy,
+            durationMilliseconds: 500, //a slow drag so the does not move fast 
+            frequency: 30,
+        });
+
+    }
+
+
+    await waitFor(item); //it will if item not found with error 
+
 
 }
 
@@ -94,6 +132,15 @@ export async function login(email = 'student@test.com', password = 'password123'
 
 
 
+
+
+}
+
+
+export async function logintoShop() {
+    await openLogin();
+    await login();
+    await waitFor(key('product_list'));
 
 
 }

@@ -38,6 +38,8 @@ void main() {
 
     await tester.tap(reset);
     await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const ValueKey('reset_yes')));
+    await tester.pumpAndSettle();
     expect(find.text('0'), findsOneWidget);
     await Future.delayed(pause);
   });
